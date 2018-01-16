@@ -1,22 +1,23 @@
 import * as React from 'react';
-import './App.css';
-
-const logo = require('./logo.svg');
+import './App.scss';
+import { Postcard } from './Postcard.component';
+import { PlaylistPan } from './PlaylistPan.component';
+import { SAMPLES as Posts } from './samples';
 
 class App extends React.Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+	public render() {
+		const PostCollection = Posts.map((post: any, index: number) => {
+			return <Postcard key={index} post={post} />;
+		});
+		return (
+			<div className="App">
+				{<PlaylistPan posts={Posts} activeIndex={10} title={'Sorting in JavaScript'} />}
+				<div className="PostsHolder" >
+					{PostCollection}
+				</div>
+			</div>
+		);
+	}
 }
 
 export default App;
