@@ -10,7 +10,17 @@ interface OwnProps {
 	post: Post;
 }
 
+declare var Prism: any;
+
 interface OwnState { }
+
+function createMarkup(code: any, lang: any) {
+	if (lang && Prism.languages[lang]) {
+		return { __html: Prism.highlight(code, Prism.languages.javascript) };
+	} else {
+		return code;
+	}
+}
 
 export class Postcard extends React.Component<OwnProps, OwnState> {
 	state: Post;
@@ -21,11 +31,12 @@ export class Postcard extends React.Component<OwnProps, OwnState> {
 		const { post } = this.props;
 		const contentCollection = post.ContentItems.map((content: PostContent, index: number) => {
 			const flaskLanguage = content.FlaskLang !== null ? 'language-' + FlaskLanguage[content.FlaskLang] : '';
+			const html = createMarkup(content.Data, FlaskLanguage[content.FlaskLang]);
 			return (
 				<div className="Postcard-Content-Item" key={index}>
 					{
 						content.Type === 1 &&
-						<pre><code className={flaskLanguage}>{content.Data}</code></pre>
+						<pre><code className={flaskLanguage} dangerouslySetInnerHTML={html} /></pre>
 					}
 					{
 						content.Type === 0 &&
