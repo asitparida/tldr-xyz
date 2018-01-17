@@ -20,14 +20,25 @@ export class PlaylistPan extends React.Component<OwnProps, OwnState> {
 		super(props);
 	}
 	handleClick(index: number) {
+		let postId = null;
 		this.props.posts.forEach((post: Post, i: number) => {
 			if (i !== index) {
 				post.active = false;
 			} else {
 				post.active = true;
+				postId = post.id;
 			}
 		});
 		this.forceUpdate();
+		if (postId) {
+			const post = document.getElementById(postId);
+			if (post) {
+				const clientRect: ClientRect = post.getBoundingClientRect();
+				const currentWindowTop = document.body.getBoundingClientRect().top;
+				const resultantTop = clientRect.top - currentWindowTop;
+				window.scrollTo(0, resultantTop);
+			}
+		}
 	}
 	markAsActive(id: string) {
 		this.props.posts.forEach((post: Post, i: number) => {
@@ -143,13 +154,9 @@ export class PlaylistPan extends React.Component<OwnProps, OwnState> {
 				default: break;
 			}
 			const activeClass = post.active ? ' active ' : '';
-			const tags = post.Tags.map((tag: string, i: number) => {
-				return <label className="Postcard-Tag" key={i}>{tag}</label>;
-			});
 			return (
 				<div key={index} className={"PlaylistPan-Item " + activeClass + postType} onClick={() => this.handleClick(index)} data-target={post.id}>
 					<img className="PlaylistPan-Item-Logo" src={postLogo} />
-					{tags.length > 0 && tags}
 					<label className="PlaylistPan-Item-Title">{post.Title}</label>
 				</div>
 			);

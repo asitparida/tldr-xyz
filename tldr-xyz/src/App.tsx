@@ -28,7 +28,7 @@ class App extends React.Component {
 		});
 		return (
 			<div className="App">
-				{<PlaylistPan posts={this.state.posts} activeIndex={10} title={'Sorting in JavaScript'} />}
+				{<PlaylistPan posts={this.state.posts} activeIndex={10} title={'JavaScript Snips'} />}
 				<div className="PostsHolder" >
 					{PostCollection}
 				</div>
