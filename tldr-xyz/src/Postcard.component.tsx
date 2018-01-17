@@ -36,7 +36,7 @@ export class Postcard extends React.Component<OwnProps, OwnState> {
 				<div className="Postcard-Content-Item" key={index}>
 					{
 						content.Type === 1 &&
-						<pre><code className={flaskLanguage} dangerouslySetInnerHTML={html} /></pre>
+						<pre className={flaskLanguage}><code className={flaskLanguage} dangerouslySetInnerHTML={html} /></pre>
 					}
 					{
 						content.Type === 0 &&
@@ -64,10 +64,11 @@ export class Postcard extends React.Component<OwnProps, OwnState> {
 					<img className="Postcard-Header-Logo" src={postLogo} />
 					<h5 className="Postcard-Header-Type">{postType}</h5>
 					<br />
-					<h5 className="Postcard-Header-Meta">Posted by <a href="#" className="Postcard-Header-Meta-User">asitparida</a> | Last modified on July 18, 2017 5:17 P.M.</h5>
-					<div className="Postcard-Tag-Container">
-						Tags  {tags.length > 0 && tags}
-					</div>
+					<h5 className="Postcard-Header-Meta">Posted by <a href="http://www.asitparida.com/" target="_blank" className="Postcard-Header-Meta-User">asitparida</a> | 
+						<div className="Postcard-Tag-Container">
+							{tags.length > 0 && tags}
+						</div>
+					</h5>
 				</div>
 				<div className="Postcard-Content">
 					<h3>{post.Title}</h3>
